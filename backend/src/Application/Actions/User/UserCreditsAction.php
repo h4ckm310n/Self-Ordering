@@ -1,11 +1,12 @@
 <?php
-declare(strict_types=1);
 
-namespace App\Application\Actions\Order;
+
+namespace App\Application\Actions\User;
+
 
 use Psr\Http\Message\ResponseInterface as Response;
 
-class ListOrdersAction extends OrderAction
+class UserCreditsAction extends UserAction
 {
     /**
      * {@inheritdoc}
@@ -13,7 +14,7 @@ class ListOrdersAction extends OrderAction
     protected function action(): Response
     {
         $user_id = $this->request->getQueryParams()['user_id'];
-        $results = $this->orderRepository->list($user_id);
-        return $this->respondWithData($results);
+        $credit = $this->userRepository->credits($user_id);
+        return $this->respondWithData(['credit' => $credit]);
     }
 }

@@ -9,17 +9,12 @@ use Psr\Http\Server\MiddlewareInterface as Middleware;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
 
-class WeappMiddleware implements Middleware
+class RemoteAddrMiddleware implements Middleware
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(Request $request, RequestHandler $handler): Response
     {
-        $appid = 'wx2ec19f6dd5a52d16';
-        $appsecret = '1ace8d51192aa0eb593655e5de3f892e';
-        $mch_id = '1230000109';
-        $request = $request->withAttributes(['appid' => $appid, 'appsecret' => $appsecret, 'mch_id' => $mch_id]);
+        $ip = $request->getServerParams()['REMOTE_ADDR'];
+        $request = $request->withAttribute('ip_addr', $ip);
         return $handler->handle($request);
     }
 }

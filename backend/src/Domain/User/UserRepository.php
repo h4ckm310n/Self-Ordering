@@ -6,11 +6,11 @@ namespace App\Domain\User;
 interface UserRepository
 {
     /**
-     * @param int $id
+     * @param string $user_id
      * @return User
      * @throws UserNotFoundException
      */
-    public function findUserOfId(int $id): User;
+    public function detail(string $user_id): User;
 
     /**
      * @param string $user_id
@@ -21,4 +21,10 @@ interface UserRepository
      * @return User
      */
     public function login(string $user_id, string $open_id, string $skey, string $nickname, string $avatar): User;
+
+    /**
+     * @param string $user_id
+     * @return int
+     */
+    public function credits(string $user_id): int;
 }

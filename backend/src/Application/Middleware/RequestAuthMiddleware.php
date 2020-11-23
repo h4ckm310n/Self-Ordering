@@ -48,7 +48,11 @@ class RequestAuthMiddleware implements Middleware
         }
 
         $skey = str_replace('Bearer ', '', $request->getHeaderLine('Authorization'));
-        $user_id = $request->getParsedBody()->user_id;
+
+        if ($request->getMethod() == 'GET')
+            $user_id = $request->getQueryParams()['user_id'];
+        else
+            $user_id = $request->getParsedBody()['user_id'];
 
         $sql = "SELECT COUNT(*) AS N FROM User WHERE user_id=? AND skey=?";
         $q = $this->conn->prepare($sql);

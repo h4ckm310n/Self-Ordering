@@ -6,13 +6,16 @@ namespace App\Application\Actions\Order;
 use Psr\Http\Message\ResponseInterface as Response;
 
 
-class OrderDetailAction
+class OrderDetailAction extends OrderAction
 {
     /**
      * {@inheritdoc}
      */
     protected function action(): Response
     {
-        // TODO: Implement action() method.
+        $order_id = $this->resolveArg('order_id');
+        $user_id = $this->request->getQueryParams()['user_id'];
+        $results = $this->orderRepository->detail($order_id, $user_id);
+        return $this->respondWithData($results);
     }
 }

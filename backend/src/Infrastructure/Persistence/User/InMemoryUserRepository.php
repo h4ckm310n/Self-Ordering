@@ -11,11 +11,6 @@ use PDO;
 class InMemoryUserRepository implements UserRepository
 {
     /**
-     * @var User[]
-     */
-    private $users;
-
-    /**
      * @var PDO
      */
     private $conn;
@@ -27,26 +22,24 @@ class InMemoryUserRepository implements UserRepository
      */
     public function __construct(PDO $conn)
     {
-        /*$this->users = $users ?? [
-            1 => new User(1, 'bill.gates', 'Bill', 'Gates'),
-            2 => new User(2, 'steve.jobs', 'Steve', 'Jobs'),
-            3 => new User(3, 'mark.zuckerberg', 'Mark', 'Zuckerberg'),
-            4 => new User(4, 'evan.spiegel', 'Evan', 'Spiegel'),
-            5 => new User(5, 'jack.dorsey', 'Jack', 'Dorsey'),
-        ];*/
         $this->conn = $conn;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function findUserOfId(int $id): User
+    public function detail(string $user_id): User
     {
-        if (!isset($this->users[$id])) {
+        $sql = "SELECT * FROM User WHERE user_id=?";
+        $q = $this->conn->prepare($sql);
+        $q->bindParam(1, $user_id);
+        $q->execute();
+        $r = $q->fetch();
+        if ($r == null) {
             throw new UserNotFoundException();
         }
 
-        return $this->users[$id];
+        return new User($r['user_id'], $r['nickname'], $r['avatar'], $r['open_id'], $r['skey'], (int) $r['credit']);
     }
 
     /**
@@ -88,5 +81,18 @@ class InMemoryUserRepository implements UserRepository
         $q2->execute();
 
         return new User($user_id, $nickname, $avatar, $open_id, $skey, (int) $credit);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function credits(string $user_id): int
+    {
+        $sql = "SELECT credit FROM User WHERE user_id=?";
+        $q = $this->conn->prepare($sql);
+        $q->bindParam(1, $user_id);
+        $q->execute();
+        $credit = (int) $q->fetch()['credit'];
+        return $credit;
     }
 }
