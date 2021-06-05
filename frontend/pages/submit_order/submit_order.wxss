@@ -1,0 +1,61 @@
+/* pages/submit_order/submit_order.wxss */
+
+.item_view {
+  height: 70rpx;
+  line-height: 70rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+}
+
+van-radio-group > view {
+  background-color: white;
+  margin-top: 20rpx;
+  padding: 20rpx
+}
+
+#use_credit_view {
+  margin-top: 20rpx;
+  padding: 20rpx;
+  background-color: white;
+}
+
+#order_bottom {
+  display: inline-block;
+  position: fixed;
+  width: 80%;
+  left: 10%;
+  bottom: 100rpx;
+  height: 100rpx;
+  background-color: #696969;
+  padding: 10rpx;
+}
+
+#total_text {
+  margin-top: 20rpx;
+  font-size: larger;
+  color: white;
+}
+
+#overlay_view {
+  background-color: white;
+  width: 70%;
+  height: 35%;
+}
+
+#pay_title {
+  padding: 20rpx;
+  text-align: center;
+  width: 100%;
+}
+
+#pay_amount {
+  text-align: center;
+  padding: 20rpx;
+  font-size: xx-large;
+  width: 100%;
+}
+
+#pay_footer {
+  width: 100%;
+  padding: 20rpx;
+}

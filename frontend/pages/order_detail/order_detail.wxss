@@ -1,0 +1,44 @@
+/* pages/order_detail/order_detail.wxss */
+
+#top {
+  background-color: white;
+  height: 300rpx;
+  text-align: center;
+  margin-bottom: 20rpx;
+  padding: 60rpx;
+}
+
+#order_num {
+  display: block;
+  width: 250rpx;
+  height: 250rpx;
+  border-radius: 50%;
+  background-color: red;
+  margin: auto;
+}
+
+#order_num > view {
+  border-radius: 50%;
+  width: 210rpx;
+  height: 210rpx;
+  line-height: 210rpx;
+  background-color: white;
+  position: relative;
+  top: 20rpx;
+  left: 20rpx;
+  text-align: center;
+  font-size: x-large;
+}
+
+.item_view {
+  height: 70rpx;
+  line-height: 70rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+}
+
+#amount {
+  font-size: large;
+  font-weight: bold;
+  color: red;
+}

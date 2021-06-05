@@ -1,0 +1,60 @@
+<!--pages/submit_order/submit_order.wxml-->
+
+<view class="body">
+  <van-panel title="Dishes">
+    <view wx:for="{{cart.items}}" wx:key="dish_id" class="item_view">
+      <van-row>
+        <van-col span="16"><text>{{item.name}}</text></van-col>
+        <van-col span="3"><text>x{{item.count}}</text></van-col>
+        <van-col><text>$ {{item.price}}</text></van-col>
+      </van-row>
+    </view>
+  </van-panel>
+  <van-cell-group>
+    <van-field
+      model:value="{{remark}}"
+      label="Remark"
+      type="textarea"
+      autosize />
+  </van-cell-group>
+  <van-radio-group value="{{dine_way}}" bind:change="changeDineWay">
+    <view>
+      <van-row>
+        <van-col span="8"><van-radio name="1">Eat-in</van-radio></van-col>
+        <van-col span="8"><van-radio name="2">Take-away</van-radio></van-col>
+      </van-row>
+    </view>
+  </van-radio-group>
+
+  <view id="use_credit_view">
+    <van-row>
+      <van-col span="4"><van-switch size="40rpx" checked="{{use_credits}}" bind:change="useCredits" /></van-col>
+      <van-col><view>Credits for reduction (50 credits as $5)</view></van-col>
+    </van-row>
+  </view>
+
+  <view id="order_bottom">
+    <van-row>
+      <van-col span="19"><view id="total_text">Total: ${{cart.total - credit / 10}}</view></van-col>
+      <van-col><van-button round type="danger" bindtap="onSubmit">Pay</van-button></van-col>
+    </van-row>
+  </view>
+</view>
+
+<van-overlay show="{{overlay_show}}">
+  <view class="overlay_wrapper">
+    <view id="overlay_view">
+      <view id="pay_title">Payment password</view>
+      <view id="pay_amount">$ {{cart.total - credit / 10}}</view>
+      <van-cell-group>
+        <van-field type="password" label="password" model:value="{{password}}" />
+      </van-cell-group>
+      <view id="pay_footer">
+        <van-row>
+          <van-col span="16"><van-button size="small" round bindtap="cancelPay">Cancel</van-button></van-col>
+          <van-col><van-button size="small" round type="primary" bindtap="onPay">Confirm</van-button></van-col>
+        </van-row>
+      </view>
+    </view>
+  </view>
+</van-overlay>

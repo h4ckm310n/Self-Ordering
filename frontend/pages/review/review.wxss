@@ -1,0 +1,16 @@
+/* pages/review/review.wxss */
+
+.review_item {
+  background-color: white;
+  margin-bottom: 20rpx;
+  padding: 20rpx;
+}
+
+.datetime {
+  color: gray;
+  font-size: small;
+}
+
+.content {
+  white-space: pre-wrap;
+}

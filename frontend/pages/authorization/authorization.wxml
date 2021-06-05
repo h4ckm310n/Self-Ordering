@@ -1,0 +1,5 @@
+<!--pages/authorization/authorization.wxml-->
+
+<view>
+  <van-button type="info" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">Login</van-button>
+</view>

@@ -1,0 +1,54 @@
+<!--pages/order/order.wxml-->
+
+<view class="body">
+  <view wx:for="{{orders}}" wx:key="order_id" class="order_item">
+    <view data-order_id="{{item.order_id}}" bindtap="orderDetail">
+      <view class="order_id">ID: {{item.order_id}}</view>
+      <view class="datetime">Order time: {{item.datetime}}</view>
+      <view class="hr_view"></view>
+      <van-row>
+        <van-col span="20"><view class="status">Status: {{status[item.status]}}</view></van-col>
+        <van-col><view class="amount">$ {{item.amount}}</view></van-col>
+      </van-row>
+    </view>
+    <van-row>
+      <van-col span="17"><van-button disabled="{{item.status != 1}}" data-disabled="{{item.status != 1}}" round size="small" bindtap="orderReview" data-order_id="{{item.order_id}}">Review</van-button></van-col>
+      <van-col><view wx:if="{{item.status == 1}}" class="order_num">Number: {{item.order_num}}</view></van-col>
+    </van-row>
+  </view>
+</view>
+
+<van-overlay show="{{submit_show}}">
+  <view class="overlay_wrapper">
+    <scroll-view scroll-y class="overlay_view">
+      <van-panel title="Star">
+        <view class="star"><van-rate value="{{review.star}}" bind:change="starChange" void-icon="star" allow-half /></view>        
+      </van-panel>
+      <van-panel title="Review Content">
+        <view class="content"><textarea value="{{review.content}}" bindinput="contentChange" col/></view>
+      </van-panel>
+      <view class="review_footer">
+        <van-row>
+          <van-col span="18"><van-button round bindtap="hideOverlay">Cancel</van-button></van-col>
+          <van-col><van-button round bindtap="submitReview">Submit</van-button></van-col>
+        </van-row>
+      </view>
+    </scroll-view>
+  </view>
+</van-overlay>
+
+<van-overlay show="{{review_show}}">
+  <view class="overlay_wrapper">
+    <scroll-view scroll-y class="overlay_view">
+      <van-panel title="Star">
+        <view class="star"><van-rate readonly value="{{review.star}}" void-icon="star" allow-half /></view>        
+      </van-panel>
+      <van-panel title="Review Content">
+        <view class="content">{{review.content}}</view>
+      </van-panel>
+      <view class="review_footer">
+        <van-col span="18"><van-button round bindtap="hideOverlay">Close</van-button></van-col>
+      </view>
+    </scroll-view>
+  </view>
+</van-overlay>

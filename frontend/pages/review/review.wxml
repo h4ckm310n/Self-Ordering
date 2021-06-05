@@ -1,0 +1,16 @@
+<!--pages/review/review.wxml-->
+
+<view class="body">
+  <van-collapse value="{{active_collapse}}" bind:change="collapseClick">
+    <view wx:for="{{reviews}}" wx:key="review_id" class="review_item">
+      <view>ID: {{item.order_id}}</view>
+      <van-row>
+        <van-col span="15"><view class="datetime">{{item.datetime}}</view></van-col>
+        <van-col><van-rate readonly value="{{item.star}}" void-icon="star" allow-half /></van-col>
+      </van-row>
+      <van-collapse-item title="Content" name="{{item.review_id}}">
+        <view class="content">{{item.content}}</view>
+      </van-collapse-item>
+    </view>
+  </van-collapse>
+</view>

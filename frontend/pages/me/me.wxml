@@ -1,0 +1,17 @@
+<!--pages/me/me.wxml-->
+
+<view class="body">
+  <view id="top">
+    <view wx:if="{{login}}" class="top_items">
+      <image src="{{avatar}}" id="avatar"></image>
+      <text id="nickname">{{nickname}}</text>
+    </view>
+    <view wx:else class="top_items">
+      <van-button type="info" bindtap="onLogin">Login</van-button>
+    </view>
+  </view>
+  <view id="bottom">
+    <van-cell wx:if="{{login}}" title="Credit" value="{{credit}}" icon="points" />
+    <van-cell wx:for="{{cells}}" wx:if="{{login}}" title="{{item.title}}" icon="{{item.icon}}" is-link link-type="navigateTo" url="{{item.url}}" />
+  </view>
+</view>

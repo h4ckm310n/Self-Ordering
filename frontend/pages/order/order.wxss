@@ -1,0 +1,51 @@
+/* pages/order/order.wxss */
+
+.order_item {
+  background-color: white;
+  margin-bottom: 20rpx;
+  padding: 20rpx;
+}
+
+.datetime {
+  color: gray;
+  font-size: small;
+}
+
+.status {
+  margin-top: 20rpx;
+  color: blue;
+  margin-bottom: 10rpx;
+}
+
+.amount {
+  font-weight: bold;
+  margin-top: 20rpx;
+  margin-bottom: 10rpx;
+}
+
+.order_num {
+  margin-top: 5rpx;
+  color: red;
+}
+
+.overlay_view {
+  width: 90%;
+  height: 55%;
+  background-color: white;
+}
+
+.star {
+  text-align: center;
+  padding: 10rpx;
+}
+
+.content {
+  width: 90%;
+  height: 280rpx;
+  white-space: pre-wrap;
+  padding-left: 20rpx;
+}
+
+.review_footer {
+  padding: 20rpx;
+}

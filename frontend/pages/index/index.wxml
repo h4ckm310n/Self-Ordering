@@ -1,0 +1,86 @@
+<!--pages/index/index.wxml-->
+<wxs module="index_wxs">
+  var cart_exist = function (cart, dish_id) {
+    var cart_index = cart.items.map(function(x) {return x.dish_id}).indexOf(dish_id);
+    if (cart_index != -1)
+      return true;
+    else
+      return false;
+  }
+
+  var dish_count = function (cart, dish_id) {
+    var cart_index = cart.items.map(function(x) {return x.dish_id}).indexOf(dish_id);
+    return cart.items[cart_index].count
+  }
+
+  module.exports = {
+    cart_exist: cart_exist,
+    dish_count: dish_count,
+  }
+</wxs>
+
+<view class="body">
+  <van-sidebar active-key="{{activeKey}}" bind:change="categoryChange">
+    <van-sidebar-item wx:for="{{categories}}" wx:key="cat_id" title="{{item.name}}" />
+  </van-sidebar>
+  <view id="dishes_view">
+    <van-card wx:for="{{dishes}}"
+      wx:key="dish_id"
+      title="{{item.name}}"
+      price="{{item.price - item.discount}}"
+      origin-price="{{item.discount == 0 ? null : item.price}}"
+      currency="$"
+      thumb="{{item.image}}">
+      <view slot="footer">
+        <view class="num_control" wx:if="{{index_wxs.cart_exist(cart, item.dish_id)}}">
+          <van-button round size="mini" bindtap="removeFromCart" data-dish_id="{{item.dish_id}}">-</van-button>
+          <view>{{index_wxs.dish_count(cart, item.dish_id)}}</view>
+          <van-button round size="mini" bindtap="addToCart" data-dish_id="{{item.dish_id}}">+</van-button>
+        </view>
+        <van-button round size="mini"
+          wx:else 
+          bindtap="addToCart"
+          data-dish_id="{{item.dish_id}}">+</van-button>
+      </view>
+    </van-card>
+  </view>
+  <view id="cart_view">
+    <van-row>
+      <view bindtap="showCart">
+        <van-col span="4"><van-icon name="cart-circle-o" size="90rpx" color="white"/></van-col>
+        <van-col span="13"><view id="total_text">$ {{cart.total}}</view></van-col>
+      </view>
+      <van-col><van-button round type="danger" bindtap="submitOrder">Submit</van-button></van-col>
+    </van-row>
+  </view>
+</view>
+
+<van-overlay show="{{overlay_show}}">
+  <view class="overlay_wrapper">
+    <view id="overlay_view">
+      <view id="overlay_top">
+        <view>
+          <van-row>
+            <van-col span="19"><van-button round size="mini" bindtap="overlayHide">Close</van-button></van-col>
+            <van-col><van-button round size="mini" bindtap="clearCart">Clear</van-button></van-col>
+          </van-row>
+        </view>
+        <view class="hr_view"></view>
+      </view>
+      <scroll-view scroll-y id="overlay_scroll">
+        <view class="cart_item" wx:for="{{cart.items}}" wx:key="dish_id">
+          <van-row>
+            <van-col span="11"><view class="cart_item_name">{{item.name}}</view></van-col>
+            <van-col span="3"><view class="cart_item_price">$ {{item.price}}</view></van-col>
+            <van-col><view class="num_control">
+              <van-button round size="mini" bindtap="removeFromCart" data-dish_id="{{item.dish_id}}">-</van-button>
+              <view>{{item.count}}</view>
+              <van-button round size="mini" bindtap="addToCart" data-dish_id="{{item.dish_id}}">+</van-button>
+            </view></van-col>
+          </van-row>
+          <view class="hr_view"></view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</van-overlay>

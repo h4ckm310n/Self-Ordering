@@ -1,0 +1,31 @@
+<!--pages/order_detail/order_detail.wxml-->
+
+<view class="body">
+  <view id="top">
+    <view id="order_num">
+      <view>{{order_num}}</view>
+    </view>
+  </view>
+  <van-panel title="Dishes" use-footer-slot>
+    <view wx:for="{{dishes}}" wx:key="dish_id" class="item_view">
+      <van-row>
+        <van-col span="16"><text>{{item.name}}</text></van-col>
+        <van-col span="3"><text>x{{item.count}}</text></van-col>
+        <van-col><text>$ {{item.price}}</text></van-col>
+      </van-row>
+    </view>
+    <view slot="footer">
+      <view id="amount">$ {{amount}}</view>
+    </view>
+  </van-panel>
+  <view style="height: 20rpx;"></view>
+  <van-panel title="Infomation">
+    <van-cell-group>
+      <van-cell title="Order Time" value="{{datetime}}" />
+      <van-cell title="Order ID" value="{{order_id}}" />
+      <van-cell title="Status" value="{{status}}" />
+      <van-cell title="Dine Way" value="{{dine_way}}" />
+      <van-cell title="Remark" value="{{remark}}" />
+    </van-cell-group>
+  </van-panel>
+</view>
